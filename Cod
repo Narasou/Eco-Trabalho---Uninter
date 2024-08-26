@@ -1,0 +1,44 @@
+pip install Flask
+from flask import Flask, request
+
+app = Flask(__name__)
+
+# Rota inicial (página de login)
+@app.route('/')
+def home():
+    return '''
+    <h1>Bem-vindo ao EcoTrabalho PME</h1>
+    <form action="/login" method="POST">
+        E-mail: <input type="email" name="email"><br>
+        Senha: <input type="password" name="senha"><br>
+        <button type="submit">Entrar</button>
+    </form>
+    <a href="/register">Criar Conta</a>
+    <a href="/search">Buscar Vagas</a>
+    <a href="/profile">Meu Perfil</a>
+    '''
+
+# Rota para login
+@app.route('/login', methods=['POST'])
+def login():
+    email = request.form['email']
+    senha = request.form['senha']
+    return f'Você entrou com o e-mail: {email}'
+
+# Rota para criar conta
+@app.route('/register')
+def register():
+    return '''
+    <h1>Criação de Conta</h1>
+    <form action="/create_account" method="POST">
+        Nome: <input type="text" name="nome"><br>
+        E-mail: <input type="email" name="email"><br>
+        Senha: <input type="password" name="senha"><br>
+        <button type="submit">Criar Conta</button>
+    </form>
+    '''
+
+# Iniciar o servidor
+if __name__ == '__main__':
+    app.run(debug=True)
+python main.py
